@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Republic of Vespera — Passport of Marta Ilse Vesk</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1024px; height: 768px; }
+  body {
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif;
+    background: #3a3f44;
+    overflow: hidden;
+  }
+  .spread { display: flex; width: 1024px; height: 768px; }
+  .page {
+    position: relative;
+    width: 512px; height: 768px;
+    color: #1c2b4a;
+    background-color: #f6f1e3;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(28,43,74,.028) 0 1px, transparent 1px 7px),
+      repeating-linear-gradient(90deg, rgba(122,31,43,.022) 0 1px, transparent 1px 7px),
+      radial-gradient(ellipse 340px 240px at 50% 42%, rgba(28,43,74,.045), transparent 70%);
+    overflow: hidden;
+  }
+  .page.left  { box-shadow: inset -26px 0 34px -22px rgba(20,24,40,.45), inset 0 0 0 1px rgba(28,43,74,.12); }
+  .page.right { box-shadow: inset  26px 0 34px -22px rgba(20,24,40,.45), inset 0 0 0 1px rgba(28,43,74,.12); }
+  .watermark {
+    position: absolute; left: 50%; top: 47%; width: 330px; height: 330px;
+    transform: translate(-50%,-50%);
+    opacity: .055; pointer-events: none;
+  }
+  .pageno {
+    position: absolute; bottom: 14px; font-size: 11px; letter-spacing: 2px; color: #55617c;
+  }
+  .left .pageno { right: 20px; } .right .pageno { left: 20px; }
+
+  /* ---------- data page ---------- */
+  .head { text-align: center; padding: 26px 30px 0; }
+  .head .country {
+    font-family: "Liberation Serif", "DejaVu Serif", serif;
+    font-size: 27px; font-weight: bold; letter-spacing: 4.5px; color: #1c2b4a;
+  }
+  .head .country-vesp { font-size: 12.5px; letter-spacing: 5px; color: #7a1f2b; margin-top: 3px; }
+  .emblem { margin: 10px auto 2px; width: 74px; height: 84px; }
+  .head .doctype {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin: 8px 6px 0; padding-top: 8px; border-top: 2.2px solid #1c2b4a;
+  }
+  .head .doctype .pw {
+    font-family: "Liberation Serif", "DejaVu Serif", serif;
+    font-size: 19px; font-weight: bold; letter-spacing: 7px;
+  }
+  .head .doctype .meta { font-size: 11px; letter-spacing: 1.6px; color: #44506c; }
+  .head .doctype .meta b { color: #1c2b4a; font-size: 12.5px; }
+
+  .body { display: flex; gap: 18px; padding: 16px 30px 0; }
+  .photo-col { width: 152px; flex: none; }
+  .photo {
+    width: 152px; height: 196px; object-fit: cover; display: block;
+    border: 1px solid rgba(28,43,74,.5);
+  }
+  .photo-no { margin-top: 6px; font-size: 10px; letter-spacing: 1.4px; color: #55617c; text-align: center; }
+  .sig { margin-top: 26px; border-top: 1px dotted #7c869e; padding-top: 5px; }
+  .sig .lab { font-size: 8.5px; letter-spacing: 1.6px; color: #66708a; text-transform: uppercase; }
+  .sig .hand {
+    font-family: "Liberation Serif", "DejaVu Serif", serif; font-style: italic;
+    font-size: 21px; color: #24365e; transform: rotate(-3deg); margin-top: 3px;
+  }
+  .fields { flex: 1; }
+  .f { margin-bottom: 10.5px; border-bottom: 1px dotted rgba(28,43,74,.35); padding-bottom: 3px; }
+  .f .lab { font-size: 8.5px; letter-spacing: 1.7px; color: #66708a; text-transform: uppercase; }
+  .f .val {
+    font-size: 15.5px; font-weight: bold; letter-spacing: 1.2px; color: #16233f;
+    font-family: "Liberation Sans", "DejaVu Sans", sans-serif; margin-top: 1px;
+  }
+  .f .val.serif { font-family: "Liberation Serif", "DejaVu Serif", serif; }
+  .frow { display: flex; gap: 16px; }
+  .frow .f { flex: 1; }
+
+  .mrz {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 13px 24px 15px;
+    background: rgba(28,43,74,.05);
+    border-top: 1px solid rgba(28,43,74,.25);
+    font-family: "Liberation Mono", "DejaVu Sans Mono", monospace;
+    font-size: 15px; letter-spacing: .5px; color: #101c33; line-height: 1.55;
+    white-space: nowrap;
+  }
+  .sheen {
+    position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, transparent 55%, rgba(255,255,255,.20) 68%, transparent 82%);
+  }
+
+  /* ---------- visas page ---------- */
+  .vhead { padding: 26px 34px 0; display: flex; justify-content: space-between; align-items: baseline; }
+  .vhead .t {
+    font-family: "Liberation Serif", "DejaVu Serif", serif;
+    font-size: 17px; font-weight: bold; letter-spacing: 6px; color: #1c2b4a;
+  }
+  .vhead .s { font-size: 10.5px; letter-spacing: 2px; color: #66708a; }
+  .vrule { margin: 9px 34px 0; border-top: 2.2px solid #1c2b4a; }
+  .vnote { margin: 10px 34px 0; font-size: 10.5px; line-height: 1.55; color: #55617c; letter-spacing: .4px; }
+
+  .stamp { position: absolute; mix-blend-mode: multiply; }
+  .rect {
+    border: 2.6px solid; border-radius: 5px; padding: 7px 13px 8px; text-align: center;
+    background: rgba(255,255,255,.10);
+  }
+  .rect .c { font-weight: bold; letter-spacing: 3px; font-size: 15px; }
+  .rect .w { font-size: 10.5px; letter-spacing: 2.2px; margin-top: 1px; }
+  .rect .d { font-weight: bold; font-size: 15.5px; letter-spacing: 1.6px; margin-top: 2px;
+             font-family: "Liberation Mono", "DejaVu Sans Mono", monospace; }
+  .ink-navy { color: #274b8f; border-color: #274b8f; opacity: .82; }
+  .ink-red  { color: #8e2434; border-color: #8e2434; opacity: .85; }
+  .ink-violet { color: #5b3a8e; border-color: #5b3a8e; opacity: .80; }
+</style>
+</head>
+<body>
+<div class="spread">
+
+  <!-- ================= DATA PAGE ================= -->
+  <section class="page left">
+    <svg class="watermark" viewBox="0 0 100 100">
+      <g fill="none" stroke="#1c2b4a" stroke-width="1.6">
+        <path d="M50 6 L88 30 V58 C88 78 70 90 50 96 C30 90 12 78 12 58 V30 Z"/>
+        <path d="M24 62 L40 38 L50 50 L60 34 L76 62"/>
+        <path d="M22 70 q7 -5 14 0 q7 5 14 0 q7 -5 14 0 q7 5 14 0"/>
+        <path d="M22 78 q7 -5 14 0 q7 5 14 0 q7 -5 14 0 q7 5 14 0"/>
+      </g>
+    </svg>
+
+    <div class="head">
+      <div class="country">REPUBLIC OF VESPERA</div>
+      <div class="country-vesp">REPUBLIKO DE VESPERA</div>
+      <svg class="emblem" viewBox="0 0 100 112">
+        <g fill="none" stroke="#1c2b4a" stroke-width="3">
+          <path d="M50 4 L92 26 V58 C92 84 72 100 50 108 C28 100 8 84 8 58 V26 Z"/>
+          <path d="M22 66 L39 40 L50 52 L61 34 L78 66" stroke="#7a1f2b"/>
+          <path d="M20 76 q8 -6 15 0 q8 6 15 0 q8 -6 15 0 q8 6 15 0" stroke-width="2.4"/>
+          <path d="M20 86 q8 -6 15 0 q8 6 15 0 q8 -6 15 0 q8 6 15 0" stroke-width="2.4"/>
+        </g>
+        <circle cx="50" cy="18" r="3.4" fill="#7a1f2b"/>
+      </svg>
+      <div class="doctype">
+        <span class="pw">PASSPORT</span>
+        <span class="meta">TYPE / TIPO <b>P</b></span>
+        <span class="meta">CODE / KODO <b>VES</b></span>
+        <span class="meta">No <b>VE0482715</b></span>
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="photo-col">
+        <img class="photo" src="portrait.jpg" alt="">
+        <div class="photo-no">VE0482715</div>
+        <div class="sig">
+          <div class="lab">Signature of holder / Subskribo</div>
+          <div class="hand">M. I. Vesk</div>
+        </div>
+      </div>
+      <div class="fields">
+        <div class="f"><div class="lab">Surname / Familinomo</div><div class="val serif">VESK</div></div>
+        <div class="f"><div class="lab">Given names / Nomi</div><div class="val serif">MARTA ILSE</div></div>
+        <div class="f"><div class="lab">Nationality / Nasionalito</div><div class="val">VESPERAN</div></div>
+        <div class="frow">
+          <div class="f"><div class="lab">Date of birth / Naskodato</div><div class="val">12 MAY 1991</div></div>
+          <div class="f"><div class="lab">Sex / Sekso</div><div class="val">F</div></div>
+        </div>
+        <div class="f"><div class="lab">Place of birth / Loko de nasko</div><div class="val">PORT VESPER</div></div>
+        <div class="frow">
+          <div class="f"><div class="lab">Date of issue / Emisodato</div><div class="val">14 MAR 2023</div></div>
+          <div class="f"><div class="lab">Date of expiry / Finvalo</div><div class="val">14 MAR 2033</div></div>
+        </div>
+        <div class="f"><div class="lab">Issuing authority / Autoritato</div><div class="val" style="font-size:13.5px">PORT VESPER PASS OFFICE</div></div>
+      </div>
+    </div>
+
+    <div class="mrz">P&lt;VESVESK&lt;&lt;MARTA&lt;ILSE&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;<br>VE04827150VES9105126F3303148&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;0</div>
+    <div class="sheen"></div>
+  </section>
+
+  <!-- ================= VISAS PAGE ================= -->
+  <section class="page right">
+    <svg class="watermark" viewBox="0 0 100 100">
+      <g fill="none" stroke="#1c2b4a" stroke-width="1.6">
+        <path d="M50 6 L88 30 V58 C88 78 70 90 50 96 C30 90 12 78 12 58 V30 Z"/>
+        <path d="M24 62 L40 38 L50 50 L60 34 L76 62"/>
+        <path d="M22 70 q7 -5 14 0 q7 5 14 0 q7 -5 14 0 q7 5 14 0"/>
+        <path d="M22 78 q7 -5 14 0 q7 5 14 0 q7 -5 14 0 q7 5 14 0"/>
+      </g>
+    </svg>
+
+    <div class="vhead"><span class="t">VISAS</span><span class="s">VISI · REPUBLIC OF VESPERA</span></div>
+    <div class="vrule"></div>
+    <p class="vnote">Stamps of foreign border authorities are entered on this page in the order of travel. A stamp that has not been cancelled remains valid for the journey it records.</p>
+
+    <!-- Kestria, first visit: entry -->
+    <svg class="stamp" style="left:36px; top:118px; transform:rotate(-6deg); opacity:.85" width="172" height="172" viewBox="0 0 172 172">
+      <g fill="none" stroke="#274b8f" stroke-width="2.6">
+        <circle cx="86" cy="86" r="80"/><circle cx="86" cy="86" r="57"/>
+      </g>
+      <defs><path id="kt1" d="M86,86 m-68,0 a68,68 0 1,1 136,0 a68,68 0 1,1 -136,0"/></defs>
+      <text font-size="14.5" letter-spacing="3.5" fill="#274b8f" font-weight="bold"><textPath href="#kt1">KESTRIA · TALVEN PASS · BORDER CONTROL ·</textPath></text>
+      <text x="86" y="76" text-anchor="middle" font-size="13" letter-spacing="2.5" fill="#274b8f">ADMITTED</text>
+      <text x="86" y="101" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#274b8f" font-family="Liberation Mono, monospace">18 JUN 2024</text>
+      <text x="86" y="120" text-anchor="middle" font-size="10.5" letter-spacing="2" fill="#274b8f">ENTRY · 30 DAYS</text>
+    </svg>
+
+    <!-- Kestria, first visit: exit -->
+    <svg class="stamp" style="left:238px; top:150px; transform:rotate(4deg); opacity:.8" width="150" height="150" viewBox="0 0 172 172">
+      <g fill="none" stroke="#274b8f" stroke-width="2.6">
+        <circle cx="86" cy="86" r="80"/><circle cx="86" cy="86" r="57"/>
+      </g>
+      <defs><path id="kt2" d="M86,86 m-68,0 a68,68 0 1,1 136,0 a68,68 0 1,1 -136,0"/></defs>
+      <text font-size="14.5" letter-spacing="3.5" fill="#274b8f" font-weight="bold"><textPath href="#kt2">KESTRIA · TALVEN PASS · BORDER CONTROL ·</textPath></text>
+      <text x="86" y="76" text-anchor="middle" font-size="13" letter-spacing="2.5" fill="#274b8f">DEPARTED</text>
+      <text x="86" y="101" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#274b8f" font-family="Liberation Mono, monospace">25 JUN 2024</text>
+      <text x="86" y="120" text-anchor="middle" font-size="10.5" letter-spacing="2" fill="#274b8f">EXIT</text>
+    </svg>
+
+    <!-- Ostmark: entry -->
+    <div class="stamp rect ink-red" style="left:52px; top:330px; transform:rotate(2.5deg)">
+      <div class="c">OSTMARK</div>
+      <div class="w">GRENZE NORD — ENTRY</div>
+      <div class="d">03 OCT 2024</div>
+    </div>
+
+    <!-- Ostmark: exit -->
+    <div class="stamp rect ink-red" style="left:268px; top:352px; transform:rotate(-3deg)">
+      <div class="c">OSTMARK</div>
+      <div class="w">GRENZE NORD — EXIT</div>
+      <div class="d">11 OCT 2024</div>
+    </div>
+
+    <!-- Fog tax: the telling detail -->
+    <div class="stamp rect ink-violet" style="left:118px; top:462px; transform:rotate(1.2deg)">
+      <div class="c">FOG TAX — PAID</div>
+      <div class="w">TAKSO DE NEBULO · PAGITA · 40 VESPERI</div>
+      <div class="d">PORT VESPER · 15 JAN 2025</div>
+    </div>
+
+    <!-- Kestria, second visit: entry -->
+    <svg class="stamp" style="left:44px; top:566px; transform:rotate(3deg); opacity:.85" width="158" height="158" viewBox="0 0 172 172">
+      <g fill="none" stroke="#274b8f" stroke-width="2.6">
+        <circle cx="86" cy="86" r="80"/><circle cx="86" cy="86" r="57"/>
+      </g>
+      <defs><path id="kt3" d="M86,86 m-68,0 a68,68 0 1,1 136,0 a68,68 0 1,1 -136,0"/></defs>
+      <text font-size="14.5" letter-spacing="3.5" fill="#274b8f" font-weight="bold"><textPath href="#kt3">KESTRIA · TALVEN PASS · BORDER CONTROL ·</textPath></text>
+      <text x="86" y="76" text-anchor="middle" font-size="13" letter-spacing="2.5" fill="#274b8f">ADMITTED</text>
+      <text x="86" y="101" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#274b8f" font-family="Liberation Mono, monospace">22 APR 2025</text>
+      <text x="86" y="120" text-anchor="middle" font-size="10.5" letter-spacing="2" fill="#274b8f">ENTRY · 30 DAYS</text>
+    </svg>
+
+    <!-- Kestria, second visit: exit -->
+    <svg class="stamp" style="left:252px; top:586px; transform:rotate(-5deg); opacity:.8" width="146" height="146" viewBox="0 0 172 172">
+      <g fill="none" stroke="#274b8f" stroke-width="2.6">
+        <circle cx="86" cy="86" r="80"/><circle cx="86" cy="86" r="57"/>
+      </g>
+      <defs><path id="kt4" d="M86,86 m-68,0 a68,68 0 1,1 136,0 a68,68 0 1,1 -136,0"/></defs>
+      <text font-size="14.5" letter-spacing="3.5" fill="#274b8f" font-weight="bold"><textPath href="#kt4">KESTRIA · TALVEN PASS · BORDER CONTROL ·</textPath></text>
+      <text x="86" y="76" text-anchor="middle" font-size="13" letter-spacing="2.5" fill="#274b8f">DEPARTED</text>
+      <text x="86" y="101" text-anchor="middle" font-size="17.5" font-weight="bold" fill="#274b8f" font-family="Liberation Mono, monospace">29 APR 2025</text>
+      <text x="86" y="120" text-anchor="middle" font-size="10.5" letter-spacing="2" fill="#274b8f">EXIT</text>
+    </svg>
+
+    <div class="pageno">6</div>
+  </section>
+</div>
+</body>
+</html>
